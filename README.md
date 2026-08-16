@@ -71,7 +71,7 @@ Screenshots reais serão adicionados após a validação da versão publicada.
 
 ## Como testar
 
-O link público será incluído aqui assim que o GitHub Pages estiver ativo e validado.
+**Acesse a aplicação publicada:** [https://sandrozdb.github.io/vitrine-de-carreira/](https://sandrozdb.github.io/vitrine-de-carreira/)
 
 ## Executar localmente
 
