@@ -1,3 +1,5 @@
+![Capa da Vitrine de Carreira](assets/cover.svg)
+
 # Vitrine de Carreira
 
 > Plataforma de diagnóstico e posicionamento profissional que transforma experiências reais em uma comunicação mais clara, estratégica e atraente para recrutadores.
