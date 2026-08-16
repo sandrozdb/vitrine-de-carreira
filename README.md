@@ -1,4 +1,4 @@
-![Capa da Vitrine de Carreira](assets/cover.svg)
+![Capa da Vitrine de Carreira](assets/capa-vitrine.svg)
 
 # Vitrine de Carreira
 
