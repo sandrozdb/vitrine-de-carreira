@@ -88,7 +88,7 @@ Depois, abra `index.html` em um navegador moderno.
 
 ## Privacidade
 
-Nesta versão não existe cadastro, banco de dados ou backend. As respostas são utilizadas no próprio navegador e o progresso é armazenado localmente por meio do `localStorage`. A aplicação não envia os dados preenchidos para uma API própria.
+Nesta simulação demonstrativa, as funções de cadastro, banco de dados e backend foram representadas pelo armazenamento local do navegador com `localStorage`. Durante os testes, os dados preenchidos permanecem no próprio dispositivo do usuário.
 
 Consulte [PRIVACY.md](PRIVACY.md) para mais detalhes.
 
@@ -96,7 +96,7 @@ Consulte [PRIVACY.md](PRIVACY.md) para mais detalhes.
 
 - A análise utiliza heurísticas e regras executadas localmente.
 - A pontuação não é oficial do LinkedIn.
-- Não existe garantia de resultado em processos seletivos.
+- Os resultados são estimativas orientativas e não representam garantia de aprovação em processos seletivos.
 - O produto está em fase de validação com usuários.
 
 ## Status
