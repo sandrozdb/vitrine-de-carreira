@@ -65,9 +65,11 @@ Plano de evolução
 Posicionamento final
 ```
 
-## Screenshots
+## Demonstração
 
-Screenshots reais serão adicionados após a validação da versão publicada.
+![Etapa 2 do diagnóstico da Vitrine de Carreira](assets/screenshot-diagnostico.svg)
+
+*Captura real da aplicação publicada, mostrando progresso, salvamento automático e construção guiada da headline.*
 
 ## Como testar
 
