@@ -1,12 +1,8 @@
-![Capa da Vitrine de Carreira](assets/capa-vitrine.svg)
+<p align="center"><img src="assets/capa-padrao.svg" alt="Vitrine de Carreira" width="100%"></p>
 
 # Vitrine de Carreira
 
-> Plataforma de diagnóstico e posicionamento profissional que transforma experiências reais em uma comunicação mais clara, estratégica e atraente para recrutadores.
-
-![Status](https://img.shields.io/badge/status-MVP%20em%20validação-C9A24B)
-![Versão](https://img.shields.io/badge/versão-v1.1-4FB6A6)
-![Licença](https://img.shields.io/badge/licença-MIT-0F1830)
+Plataforma de diagnóstico e posicionamento profissional que transforma experiências reais em uma comunicação mais clara, estratégica e atraente para recrutadores.
 
 ## Sobre o projeto
 
