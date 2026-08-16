@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Vitrine de Carreira — diagnóstico e posicionamento estratégico para LinkedIn.">
+<title>Vitrine de Carreira — Transforme sua trajetória em posicionamento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-950:#0B1220;
+    --ink-900:#0F1830;
+    --ink-800:#161F3B;
+    --ink-700:#212C4C;
+    --gold-500:#C9A24B;
+    --gold-300:#E8CD8A;
+    --gold-100:#F5E9C9;
+    --teal-400:#4FB6A6;
+    --teal-300:#7FD1C3;
+    --paper-50:#F7F4EE;
+    --paper-100:#EDE8DC;
+    --danger:#D9705C;
+    --warning:#E5B45A;
+    --success:#62C8B7;
+    --font-display:'Fraunces',serif;
+    --font-body:'Inter',sans-serif;
+    --font-mono:'IBM Plex Mono',monospace;
+    --shadow:0 20px 60px rgba(0,0,0,.22);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--ink-950);color:var(--paper-50);font-family:var(--font-body);
+    line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;
+  }
+  ::selection{background:var(--gold-300);color:var(--ink-950);}
+  a{color:inherit;}
+  button,input,textarea,select{font-family:inherit;}
+  button{cursor:pointer;}
+  button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,a:focus-visible{
+    outline:2px solid var(--gold-300);outline-offset:3px;
+  }
+  .app{max-width:1040px;margin:0 auto;padding:0 24px 120px;}
+  .app.wide{max-width:1180px;}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
+  /* topbar */
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(11,18,32,.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,162,75,.18);}
+  .topbar-inner{max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
+  .wordmark{font-family:var(--font-display);font-weight:600;font-size:19px;display:flex;align-items:center;gap:9px;white-space:nowrap;}
+  .wordmark .dot{width:8px;height:8px;border-radius:50%;background:var(--gold-500);box-shadow:0 0 12px var(--gold-500);}
+  .stage-rail{display:flex;align-items:center;overflow:auto;scrollbar-width:none;font-family:var(--font-mono);font-size:10.8px;letter-spacing:.04em;}
+  .stage-rail::-webkit-scrollbar{display:none;}
+  .stage{display:flex;align-items:center;gap:6px;padding:0 11px;color:rgba(247,244,238,.32);border-left:1px solid rgba(247,244,238,.11);white-space:nowrap;}
+  .stage:first-child{border-left:none;}.stage.done{color:var(--teal-300);}.stage.active{color:var(--gold-300);}
+  .stage .num{font-weight:500;}
+
+  /* views */
+  .view{display:none;animation:rise .4s ease both;}.view.visible{display:block;}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.view{animation:none}.window::before{animation:none!important}.loading-dot{animation:none!important}}
+  .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-300);margin:0 0 14px;}
+  h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;margin:0;}
+  .lede{color:rgba(247,244,238,.68);font-size:17px;max-width:66ch;}
+  .muted{color:rgba(247,244,238,.55);}.tiny{font-size:12px;color:rgba(247,244,238,.48);}
+
+  /* hero */
+  .hero{padding:64px 0 40px;}.hero h1{font-size:clamp(35px,5.4vw,60px);line-height:1.04;letter-spacing:-.015em;}
+  .hero h1 em{font-style:italic;color:var(--gold-300);}.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:center;margin-top:36px;}
+  .window{position:relative;border-radius:18px;padding:30px;background:linear-gradient(160deg,var(--ink-800),var(--ink-900) 60%);border:1px solid rgba(201,162,75,.25);overflow:hidden;min-height:300px;box-shadow:var(--shadow);}
+  .window::before{content:'';position:absolute;inset:-40%;background:conic-gradient(from 200deg at 30% 20%,rgba(201,162,75,.24),transparent 32%);animation:sweep 9s linear infinite;}
+  @keyframes sweep{to{transform:rotate(360deg)}}.window-inner{position:relative;z-index:1;}.kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:var(--gold-300);text-transform:uppercase;}
+  .score-num{font-family:var(--font-display);font-size:88px;line-height:1;margin:6px 0 2px;}.score-sub{color:rgba(247,244,238,.55);font-size:14px;}
+  .panes{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:26px;}.pane{height:34px;border-radius:6px;background:rgba(247,244,238,.08);border:1px solid rgba(247,244,238,.1);}.pane.lit{background:linear-gradient(180deg,var(--gold-300),var(--gold-500));border-color:transparent;}
+  .promise-list{list-style:none;margin:36px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}.promise-list li{border-top:1px solid rgba(201,162,75,.3);padding-top:12px;font-size:14px;color:rgba(247,244,238,.72);}.promise-list b{display:block;color:var(--paper-50);font-family:var(--font-display);font-size:16px;margin-bottom:4px;}
+
+  /* buttons */
+  .cta-row{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap;}.btn{border:none;border-radius:999px;padding:14px 26px;font-size:14.5px;font-weight:600;letter-spacing:.01em;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease,color .15s ease;}
+  .btn-primary{background:linear-gradient(180deg,var(--gold-300),var(--gold-500));color:var(--ink-950);}.btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 24px -8px rgba(201,162,75,.55);}
+  .btn-ghost{background:transparent;color:var(--paper-50);border:1px solid rgba(247,244,238,.28);}.btn-ghost:hover{border-color:var(--gold-300);color:var(--gold-300);}.btn-sm{padding:9px 16px;font-size:13px;}.btn[disabled]{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;}
+
+  /* panels */
+  .panel{background:var(--ink-800);border:1px solid rgba(247,244,238,.08);border-radius:16px;padding:28px;margin-top:20px;box-shadow:0 10px 35px rgba(0,0,0,.08);}
+  .panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px;flex-wrap:wrap;}.panel-title{font-size:18px;}.panel-sub{font-size:13px;color:rgba(247,244,238,.5);margin-top:4px;}
+  .divider{height:1px;background:rgba(247,244,238,.08);margin:22px 0;}
+
+  /* form */
+  .progress-track{height:5px;border-radius:999px;background:rgba(247,244,238,.1);overflow:hidden;margin:26px 0 8px;}.progress-fill{height:100%;background:linear-gradient(90deg,var(--teal-400),var(--gold-300));transition:width .35s ease;}.progress-label{font-family:var(--font-mono);font-size:12px;color:rgba(247,244,238,.5);display:flex;justify-content:space-between;gap:12px;}
+  .field{margin-bottom:18px;}.field label{display:block;font-size:13px;color:rgba(247,244,238,.7);margin-bottom:7px;font-weight:500;}.field .hint{font-size:12px;color:rgba(247,244,238,.42);margin:6px 0 0;}
+  .field input[type=text],.field textarea,.field select,.job-textarea{width:100%;background:var(--ink-900);border:1px solid rgba(247,244,238,.14);border-radius:10px;padding:12px 14px;color:var(--paper-50);font-size:14.5px;transition:border-color .15s ease,box-shadow .15s ease;}
+  .field input:focus,.field textarea:focus,.field select:focus,.job-textarea:focus{outline:none;border-color:var(--gold-300);box-shadow:0 0 0 3px rgba(201,162,75,.16);}.field textarea,.job-textarea{resize:vertical;min-height:96px;}
+  .row-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}.field-meta{display:flex;justify-content:space-between;gap:12px;margin-top:7px;align-items:flex-start;}.char-count{font-family:var(--font-mono);font-size:11px;color:rgba(247,244,238,.4);white-space:nowrap;}
+  .feedback{font-size:12px;display:flex;gap:7px;align-items:flex-start;line-height:1.4;}.feedback.ok{color:var(--teal-300)}.feedback.warn{color:var(--warning)}.feedback.neutral{color:rgba(247,244,238,.45)}
+  .wizard-nav{display:flex;justify-content:space-between;margin-top:28px;gap:12px;}.entry-card{background:var(--ink-900);border:1px solid rgba(247,244,238,.09);border-radius:12px;padding:18px;margin-bottom:14px;}
+
+  /* diagnostic */
+  .score-hero{display:flex;gap:32px;align-items:center;flex-wrap:wrap;}.gauge{width:156px;height:156px;border-radius:50%;flex:0 0 auto;background:conic-gradient(var(--gold-300) calc(var(--pct,0)*1%),rgba(247,244,238,.08) 0);display:flex;align-items:center;justify-content:center;position:relative;}.gauge::after{content:'';position:absolute;inset:12px;border-radius:50%;background:var(--ink-800);}.gauge-num{position:relative;z-index:1;font-family:var(--font-display);font-size:38px;text-align:center;}.gauge-num span{display:block;font-family:var(--font-mono);font-size:11px;color:rgba(247,244,238,.5);}
+  .score-copy{flex:1;min-width:240px;}.score-level{font-family:var(--font-display);font-size:25px;color:var(--gold-300);margin:4px 0 8px;}.subscore-list{margin-top:20px;}.subscore-row{display:grid;grid-template-columns:145px 1fr 42px;gap:12px;align-items:center;margin-bottom:12px;font-size:13px;}.subscore-bar{height:8px;border-radius:999px;background:rgba(247,244,238,.08);overflow:hidden;}.subscore-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal-400),var(--teal-300));}.subscore-row .val{font-family:var(--font-mono);color:rgba(247,244,238,.6);text-align:right;}
+  .analysis-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}.analysis-card{background:var(--ink-900);border:1px solid rgba(247,244,238,.08);border-radius:12px;padding:18px;}.analysis-card .analysis-score{font-family:var(--font-mono);color:var(--gold-300);font-size:12px;}.analysis-card h3{font-size:18px;margin:4px 0 12px;}.mini-list{margin:0;padding-left:18px;color:rgba(247,244,238,.72);font-size:13px;}.mini-list li{margin:6px 0;}.mini-list.good li::marker{color:var(--teal-300)}.mini-list.gap li::marker{color:var(--danger)}.suggestion-inline{margin-top:12px;padding:12px 14px;border-left:2px solid var(--gold-500);background:rgba(201,162,75,.07);font-size:13px;color:rgba(247,244,238,.82);}
+  .reco-list{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:10px;}.reco-list li{display:flex;gap:12px;align-items:flex-start;background:var(--ink-900);border-left:2px solid var(--gold-500);border-radius:0 10px 10px 0;padding:12px 14px;font-size:13.8px;color:rgba(247,244,238,.82);}.reco-list b{color:var(--gold-300);}
+  .disclaimer{font-size:12px;color:rgba(247,244,238,.45);padding:14px 16px;border:1px solid rgba(247,244,238,.08);border-radius:10px;background:rgba(255,255,255,.02);margin-top:18px;}
+
+  /* tabs/build */
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}.tab-btn{background:var(--ink-800);border:1px solid rgba(247,244,238,.1);color:rgba(247,244,238,.6);border-radius:999px;padding:9px 16px;font-size:13px;font-weight:500;}.tab-btn.active{background:linear-gradient(180deg,var(--gold-300),var(--gold-500));color:var(--ink-950);border-color:transparent;font-weight:700;}.tab-pane{display:none}.tab-pane.active{display:block}
+  .suggestion-box{background:var(--ink-900);border:1px solid rgba(79,182,166,.28);border-radius:12px;padding:16px;margin:14px 0;}.tag-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal-300);margin-bottom:8px;display:block;}.suggestion-box textarea{width:100%;background:transparent;border:none;color:var(--paper-50);font-size:14.5px;resize:vertical;min-height:74px;}.suggestion-box textarea:focus{outline:none}.copy-btn{background:none;border:1px solid rgba(247,244,238,.2);color:rgba(247,244,238,.7);border-radius:8px;padding:6px 12px;font-size:12px;margin-top:8px;}.copy-btn:hover{border-color:var(--gold-300);color:var(--gold-300);}.kw-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}.kw{font-family:var(--font-mono);font-size:12px;padding:6px 12px;border-radius:999px;}.kw.have{background:rgba(79,182,166,.18);color:var(--teal-300)}.kw.missing{background:rgba(217,112,92,.15);color:var(--danger)}.kw.emphasis{background:rgba(201,162,75,.14);color:var(--gold-300)}
+  .signal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.signal{background:rgba(255,255,255,.035);border-radius:10px;padding:11px;font-size:12px;color:rgba(247,244,238,.55)}.signal strong{display:block;font-family:var(--font-mono);font-size:12px;margin-bottom:3px}.signal.yes strong{color:var(--teal-300)}.signal.no strong{color:var(--danger)}
+
+  /* job matching */
+  .match-hero{display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:center}.match-number{font-family:var(--font-display);font-size:62px;color:var(--gold-300);line-height:1}.match-number span{display:block;font-family:var(--font-mono);font-size:11px;color:rgba(247,244,238,.45);margin-top:7px}.match-columns{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.match-card{background:var(--ink-900);border-radius:12px;padding:16px;border:1px solid rgba(247,244,238,.08)}.match-card h3{font-size:15px;margin-bottom:10px}.match-card.found h3{color:var(--teal-300)}.match-card.highlight h3{color:var(--gold-300)}.match-card.missing h3{color:var(--danger)}
+
+  /* networking */
+  .net-card{background:var(--ink-900);border-radius:12px;padding:18px;margin-bottom:14px;border:1px solid rgba(247,244,238,.08)}.net-card p{margin:0;font-size:14px;color:rgba(247,244,238,.85);white-space:pre-line}.net-actions{display:flex;justify-content:flex-end;margin-top:10px}
+
+  /* plan */
+  .priority-section{margin-top:22px}.priority-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}.priority-chip{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.07em;border-radius:999px;padding:5px 9px}.priority-chip.high{background:rgba(217,112,92,.16);color:#f29a88}.priority-chip.medium{background:rgba(229,180,90,.14);color:#f0c876}.priority-chip.low{background:rgba(79,182,166,.14);color:var(--teal-300)}
+  .checklist{list-style:none;padding:0;margin:0;display:grid;gap:10px}.check-item{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:flex-start;background:var(--ink-900);border-radius:10px;padding:14px 15px;border:1px solid rgba(247,244,238,.08)}.check-item input{margin-top:3px;width:17px;height:17px;accent-color:var(--gold-500)}.check-item.done .task-label{text-decoration:line-through;color:rgba(247,244,238,.38)}.task-label{font-size:14px;cursor:pointer}.task-meta{font-size:11.5px;color:rgba(247,244,238,.45);margin-top:4px}.gain{font-family:var(--font-mono);font-size:11px;color:var(--gold-300);white-space:nowrap}
+  .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:20px}.compare-col{background:var(--ink-900);border-radius:12px;padding:20px}.compare-col .lbl{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:rgba(247,244,238,.5)}.compare-col .big{font-family:var(--font-display);font-size:44px;margin:6px 0}.compare-col.after .big{color:var(--gold-300)}
+
+  /* result */
+  .result-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.result-card{background:var(--ink-900);border:1px solid rgba(247,244,238,.08);border-radius:12px;padding:18px}.result-card.full{grid-column:1/-1}.result-card .lbl{font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.08em;font-size:10.5px;color:rgba(247,244,238,.45);margin-bottom:7px}.result-card .value{font-size:15px;color:rgba(247,244,238,.9);white-space:pre-line}.score-pair{display:flex;gap:28px;flex-wrap:wrap}.score-pair .n{font-family:var(--font-display);font-size:42px}.score-pair .n.after{color:var(--gold-300)}
+
+  /* toast + loader */
+  .toast{position:fixed;right:20px;bottom:20px;z-index:90;background:var(--paper-50);color:var(--ink-950);border-radius:10px;padding:11px 14px;font-size:13px;font-weight:600;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);pointer-events:none;transition:.2s ease}.toast.show{opacity:1;transform:none}
+  .loading-overlay{position:fixed;inset:0;background:rgba(11,18,32,.9);z-index:100;display:none;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(8px)}.loading-overlay.visible{display:flex}.loading-card{width:min(460px,100%);background:var(--ink-800);border:1px solid rgba(201,162,75,.22);border-radius:18px;padding:30px;text-align:center;box-shadow:var(--shadow)}.loading-orb{width:62px;height:62px;margin:0 auto 18px;border-radius:50%;border:2px solid rgba(247,244,238,.12);border-top-color:var(--gold-300);animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.loading-card h3{font-size:23px}.loading-status{margin-top:8px;color:rgba(247,244,238,.58);font-size:14px}.loading-dots{display:flex;gap:6px;justify-content:center;margin-top:18px}.loading-dot{width:6px;height:6px;border-radius:50%;background:var(--gold-300);animation:pulse 1.2s infinite ease-in-out}.loading-dot:nth-child(2){animation-delay:.15s}.loading-dot:nth-child(3){animation-delay:.3s}@keyframes pulse{0%,80%,100%{opacity:.25;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
+
+  .empty-note{color:rgba(247,244,238,.45);font-size:13.5px;margin-top:10px}.hint{font-size:12px;color:rgba(247,244,238,.42)}footer{text-align:center;padding:50px 24px 26px;color:rgba(247,244,238,.32);font-size:12.5px;font-family:var(--font-mono)}
+
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr}.analysis-grid{grid-template-columns:1fr}.match-columns{grid-template-columns:1fr}.signal-grid{grid-template-columns:repeat(2,1fr)}.stage-rail{display:none}}
+  @media(max-width:700px){.app,.app.wide{padding-left:18px;padding-right:18px}.topbar-inner{padding:13px 18px}.hero{padding-top:44px}.row-2,.result-grid,.compare-grid,.match-hero{grid-template-columns:1fr}.promise-list{grid-template-columns:1fr}.panel{padding:20px}.score-hero{align-items:flex-start}.subscore-row{grid-template-columns:105px 1fr 34px;gap:8px}.wizard-nav{flex-wrap:wrap}.wizard-nav .btn{flex:1}.check-item{grid-template-columns:auto 1fr}.gain{grid-column:2}.score-num{font-size:72px}}
+  @media(max-width:430px){.hero h1{font-size:36px}.lede{font-size:15px}.btn{width:100%;text-align:center}.cta-row{display:grid;grid-template-columns:1fr}.window{min-height:260px;padding:24px}.panel{border-radius:13px}.tabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.tab-btn{white-space:nowrap}.signal-grid{grid-template-columns:1fr}.gauge{width:136px;height:136px}.progress-label{font-size:10.5px}.match-number{font-size:52px}input,textarea,select,.job-textarea{font-size:16px!important}}
+  p,span,div,textarea,a{overflow-wrap:anywhere;word-break:break-word;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="wordmark"><span class="dot" aria-hidden="true"></span>Vitrine de Carreira</div>
+    <nav class="stage-rail" id="stageRail" aria-label="Etapas da jornada"></nav>
+  </div>
+</div>
+
+<section class="view visible" id="view-landing">
+  <div class="app">
+    <div class="hero">
+      <p class="eyebrow">Diagnóstico &amp; posicionamento profissional</p>
+      <div class="hero-grid">
+        <div>
+          <h1>Transforme sua trajetória em um perfil que <em>se posiciona.</em></h1>
+          <p class="lede" style="margin-top:16px;">Entenda o que seu LinkedIn comunica hoje, o que está faltando e como melhorar headline, Sobre, experiências, palavras-chave e posicionamento — sem inventar nada.</p>
+          <div class="cta-row">
+            <button class="btn btn-primary" onclick="startDiagnosis()">Começar diagnóstico</button>
+            <button class="btn btn-ghost" onclick="resumeProgress()" id="resumeBtn" style="display:none;">Continuar de onde parei</button>
+          </div>
+        </div>
+        <div class="window" aria-label="Prévia da pontuação">
+          <div class="window-inner">
+            <span class="kicker">Pontuação de vitrine</span>
+            <div class="score-num" id="landingScore">—</div>
+            <div class="score-sub" id="landingScoreSub">complete o diagnóstico para revelar</div>
+            <div class="panes" id="landingPanes"><div class="pane"></div><div class="pane"></div><div class="pane"></div><div class="pane"></div><div class="pane"></div></div>
+          </div>
+        </div>
+      </div>
+      <ul class="promise-list">
+        <li><b>Diagnóstico explicável</b>Nota por seção, pontos fortes, lacunas e próximos ajustes.</li>
+        <li><b>Construção guiada</b>Headline, Sobre e estrutura de experiências baseados na sua trajetória real.</li>
+        <li><b>Evolução prática</b>Compatibilidade com vaga, networking e plano priorizado por impacto.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-form">
+  <div class="app">
+    <div class="panel" style="margin-top:32px;">
+      <p class="eyebrow" id="stepEyebrow"></p>
+      <h2 id="stepTitle">Objetivo profissional</h2>
+      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <div class="progress-label"><span id="progressText"></span><span>salvo automaticamente</span></div>
+      <div id="stepBody" style="margin-top:24px;"></div>
+      <div class="wizard-nav">
+        <button class="btn btn-ghost" id="btnBack" onclick="stepBack()">Voltar</button>
+        <button class="btn btn-primary" id="btnNext" onclick="stepNext()">Avançar</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-diagnostic">
+  <div class="app">
+    <p class="eyebrow" style="margin-top:32px;">Diagnóstico</p>
+    <h2 style="font-size:30px;">O retrato atual do seu perfil</h2>
+    <p class="lede">A nota combina clareza, completude, evidências, aderência à área e qualidade estrutural. Texto grande, sozinho, não garante pontuação alta.</p>
+
+    <div class="panel">
+      <div class="score-hero">
+        <div class="gauge" id="gaugeMain" style="--pct:0"><div class="gauge-num" id="gaugeNum">0<span>de 100</span></div></div>
+        <div class="score-copy">
+          <span class="kicker">Nível atual</span>
+          <div class="score-level" id="scoreLevel">Perfil em construção</div>
+          <p class="muted" id="scoreLevelText" style="margin:0"></p>
+        </div>
+      </div>
+      <div class="subscore-list" id="subscoreList"></div>
+      <div class="disclaimer">A pontuação da Vitrine de Carreira é uma estimativa baseada na qualidade, clareza, completude e aderência das informações fornecidas. Ela não representa uma pontuação oficial do LinkedIn nem garante resultados em processos seletivos.</div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><div><h3 class="panel-title">Análise por seção</h3><div class="panel-sub">O que está bom, o que falta e como evoluir.</div></div></div>
+      <div class="analysis-grid" id="analysisGrid"></div>
+    </div>
+
+    <div class="panel">
+      <h3 class="panel-title">Recomendações prioritárias</h3>
+      <ul class="reco-list" id="recoList"></ul>
+    </div>
+
+    <div class="cta-row">
+      <button class="btn btn-primary" onclick="goTo('build')">Ir para construção guiada</button>
+      <button class="btn btn-ghost" onclick="goTo('form')">Editar respostas</button>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-build">
+  <div class="app wide">
+    <p class="eyebrow" style="margin-top:32px;">Construção guiada</p>
+    <h2 style="font-size:30px;">Transforme informação em posicionamento</h2>
+    <p class="lede">As sugestões usam apenas o que você informou. Quando faltar evidência real, a ferramenta deixa um marcador para você completar.</p>
+    <div class="tabs" id="buildTabs" role="tablist"></div>
+    <div class="panel" id="buildPanel">
+      <div class="tab-pane active" id="pane-headline"></div>
+      <div class="tab-pane" id="pane-about"></div>
+      <div class="tab-pane" id="pane-exp"></div>
+      <div class="tab-pane" id="pane-projetos"></div>
+      <div class="tab-pane" id="pane-cert"></div>
+      <div class="tab-pane" id="pane-kw"></div>
+    </div>
+    <div class="cta-row">
+      <button class="btn btn-primary" onclick="goTo('job')">Comparar com uma vaga</button>
+      <button class="btn btn-ghost" onclick="goTo('diagnostic')">Voltar ao diagnóstico</button>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-job">
+  <div class="app">
+    <p class="eyebrow" style="margin-top:32px;">Compatibilidade com vaga</p>
+    <h2 style="font-size:30px;">Veja o que a vaga pede — e o que seu perfil mostra</h2>
+    <p class="lede">Cole uma descrição de vaga. A análise identifica termos e competências presentes nas informações que você forneceu; ela não afirma que você não possui algo que não apareceu no texto.</p>
+    <div class="panel">
+      <label for="jobText" style="display:block;font-size:13px;margin-bottom:8px;color:rgba(247,244,238,.7)">Descrição da vaga</label>
+      <textarea id="jobText" class="job-textarea" rows="10" placeholder="Cole aqui responsabilidades, requisitos e diferenciais da vaga..."></textarea>
+      <div class="field-meta"><span class="hint">Quanto mais completa a descrição, mais útil será a comparação.</span><span class="char-count" id="jobCount">0 caracteres</span></div>
+      <div class="cta-row" style="margin-top:18px"><button class="btn btn-primary btn-sm" onclick="analyzeJob()">Analisar compatibilidade</button></div>
+    </div>
+    <div id="jobResult"></div>
+    <div class="cta-row">
+      <button class="btn btn-primary" onclick="goTo('network')">Ir para networking</button>
+      <button class="btn btn-ghost" onclick="goTo('build')">Voltar à construção</button>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-network">
+  <div class="app">
+    <p class="eyebrow" style="margin-top:32px;">Estratégia de networking</p>
+    <h2 style="font-size:30px;">Aparecer é parte do posicionamento</h2>
+    <p class="lede">Modelos contextualizados pela sua área, cargo e projetos. Trechos entre colchetes precisam ser personalizados com informações reais.</p>
+    <div class="panel" id="networkBox"></div>
+    <div class="cta-row">
+      <button class="btn btn-primary" onclick="goTo('plan')">Ver plano de evolução</button>
+      <button class="btn btn-ghost" onclick="goTo('job')">Voltar à vaga</button>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-plan">
+  <div class="app">
+    <p class="eyebrow" style="margin-top:32px;">Plano de evolução</p>
+    <h2 style="font-size:30px;">Corrija primeiro o que mais muda seu posicionamento</h2>
+    <p class="lede">As tarefas são priorizadas pelo tamanho da lacuna e pelo impacto da seção na leitura do perfil.</p>
+    <div class="panel">
+      <h3 class="panel-title">Progresso</h3>
+      <div class="progress-track"><div class="progress-fill" id="planProgressFill" style="width:0%"></div></div>
+      <div class="progress-label"><span id="planProgressText">0% concluído</span><span id="planProgressCount">0/0 tarefas</span></div>
+      <div id="checklistBox"></div>
+    </div>
+    <div class="panel">
+      <h3 class="panel-title">Antes × Depois</h3>
+      <p class="lede" style="font-size:13.5px;">O “Depois” é uma projeção baseada em elevar as seções corrigíveis a uma faixa-alvo de qualidade. Não é garantia de desempenho no LinkedIn.</p>
+      <div class="compare-grid"><div class="compare-col before"><span class="lbl">Antes</span><div class="big" id="beforeScore">0</div><span class="lbl">pontos de 100</span></div><div class="compare-col after"><span class="lbl">Depois projetado</span><div class="big" id="afterScore">0</div><span class="lbl">pontos de 100</span></div></div>
+    </div>
+    <div class="cta-row"><button class="btn btn-primary" onclick="goTo('result')">Ver meu posicionamento</button><button class="btn btn-ghost" onclick="goTo('network')">Voltar ao networking</button></div>
+  </div>
+</section>
+
+<section class="view" id="view-result">
+  <div class="app">
+    <p class="eyebrow" style="margin-top:32px;">Resultado final</p>
+    <h2 style="font-size:30px;">Seu posicionamento profissional</h2>
+    <p class="lede">Um resumo estratégico para você enxergar, em uma tela, quem está tentando comunicar e quais elementos devem aparecer com mais força.</p>
+    <div class="panel"><div class="result-grid" id="resultGrid"></div></div>
+    <div class="cta-row"><button type="button" class="btn btn-ghost" onclick="goTo('plan')">Voltar ao plano</button><button type="button" class="btn btn-ghost" onclick="restartDiagnosis(); return false;">Recomeçar diagnóstico</button></div>
+  </div>
+</section>
+
+<footer>vitrine de carreira — nenhuma experiência é inventada; tudo parte do que você informou</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="loading-overlay" id="loadingOverlay" aria-hidden="true">
+  <div class="loading-card" role="status" aria-live="polite">
+    <div class="loading-orb" aria-hidden="true"></div>
+    <span class="kicker">Análise em andamento</span>
+    <h3 id="loadingTitle">Analisando sua trajetória...</h3>
+    <div class="loading-status" id="loadingStatus">Organizando as informações que você forneceu.</div>
+    <div class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></div>
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   CONFIG / STATE / STORAGE
+   ========================================================================= */
+const STORAGE_KEY = 'vitrineState_v2';
+const LEGACY_STORAGE_KEYS = ['vitrineState_v1'];
+const STATE_VERSION = 2;
+const VIEWS = ['landing','form','diagnostic','build','job','network','plan','result'];
+const STAGES = [
+  ['form','Diagnóstico'],['diagnostic','Análise'],['build','Construção'],['job','Vaga'],['network','Networking'],['plan','Plano'],['result','Resultado']
+];
+const FORM_STEPS = ['objetivo','headline','sobre','formacao','experiencias','projetos','certificacoes','competencias','revisao'];
+const FORM_TITLES = {
+  objetivo:'Objetivo profissional',headline:'Headline atual',sobre:'Sobre atual',formacao:'Formação',
+  experiencias:'Experiências',projetos:'Projetos',certificacoes:'Certificações',competencias:'Competências',revisao:'Revisão'
+};
+const FIELD_KEY = {
+  headline:'headlineAtual',sobre:'sobreAtual',formacao:'formacaoTexto',experiencias:'experienciaTexto',
+  projetos:'projetosTexto',certificacoes:'certificacoesTexto',competencias:'competenciasTexto'
+};
+
+const AREAS = {
+  tecnologia:{label:'Tecnologia',keywords:['Python','SQL','Cloud','APIs','Git','Automação','Testes','Arquitetura de Software','JavaScript','Metodologias Ágeis']},
+  desenvolvimento:{label:'Desenvolvimento de Software',keywords:['JavaScript','TypeScript','Python','Java','APIs','Git','Testes','Clean Code','Arquitetura de Software','Banco de Dados']},
+  ia:{label:'Inteligência Artificial',keywords:['Inteligência Artificial','IA Generativa','LLM','Prompt Engineering','Agentes de IA','Machine Learning','Python','RAG','Automação','APIs']},
+  automacao:{label:'Automação',keywords:['Automação','n8n','Workflows','APIs','Integrações','Python','RPA','Processos','Webhooks','Agentes de IA']},
+  dados:{label:'Dados & Analytics',keywords:['SQL','Python','Power BI','ETL','Estatística','Machine Learning','Dashboards','Storytelling com Dados','Excel','KPIs']},
+  produto:{label:'Produto',keywords:['Product Management','Discovery','Roadmap','MVP','Backlog','Métricas','Experimentação','UX','Stakeholders','Agile']},
+  consultoria:{label:'Consultoria',keywords:['Estruturação de Problemas','Análise de Dados','Storytelling','PowerPoint','Excel','Stakeholders','Hipóteses','Insights','Processos','Transformação Digital']},
+  cybersecurity:{label:'Cybersecurity',keywords:['Cybersecurity','Segurança da Informação','Redes','Linux','Vulnerabilidades','SOC','SIEM','IAM','Pentest','Cloud Security']},
+  cloud:{label:'Cloud',keywords:['Cloud Computing','AWS','Azure','OCI','GCP','Docker','Kubernetes','Linux','DevOps','Infraestrutura']},
+
+  juridico:{label:'Jurídico & Direito',keywords:['Direito','Jurídico','Contratos','Compliance','LGPD','Análise Jurídica','Contencioso','Consultivo','Due Diligence','Regulação']},
+  saude:{label:'Saúde',keywords:['Saúde','Atendimento ao Paciente','Assistência','Prontuário','Protocolos','Segurança do Paciente','Gestão em Saúde','Indicadores Assistenciais','Qualidade','Humanização']},
+  farmacia:{label:'Farmacêutica & Biotecnologia',keywords:['Farmácia','Biotecnologia','BPF','GMP','Assuntos Regulatórios','Controle de Qualidade','Pesquisa Clínica','Farmacovigilância','ANVISA','Laboratório']},
+  educacao:{label:'Educação',keywords:['Educação','Ensino','Planejamento Pedagógico','Metodologias Ativas','Avaliação','BNCC','Gestão Escolar','EAD','Tutoria','Desenvolvimento de Conteúdo']},
+  psicologia:{label:'Psicologia',keywords:['Psicologia','Atendimento','Avaliação Psicológica','Escuta Ativa','Saúde Mental','Desenvolvimento Humano','Psicologia Organizacional','Recrutamento','Treinamento','Psicodiagnóstico']},
+
+  marketing:{label:'Marketing',keywords:['SEO','Growth','Redes Sociais','Copywriting','Google Analytics','Branding','Campanhas','Funil de Vendas','Meta Ads','CRM']},
+  comunicacao:{label:'Comunicação & Conteúdo',keywords:['Comunicação Corporativa','Relações Públicas','Assessoria de Imprensa','Conteúdo','Comunicação Interna','Social Media','Branding','Eventos','Storytelling','Redação']},
+  vendas:{label:'Vendas',keywords:['Prospecção','Negociação','CRM','Funil de Vendas','Metas','Relacionamento com Cliente','Vendas Consultivas','Follow-up','Pipeline','Forecast']},
+  customer_success:{label:'Customer Success',keywords:['Customer Success','Onboarding','Retenção','Churn','NPS','Health Score','CRM','Sucesso do Cliente','Upsell','Relacionamento']},
+  atendimento:{label:'Atendimento & Experiência do Cliente',keywords:['Atendimento ao Cliente','Experiência do Cliente','CX','SAC','NPS','Resolução de Problemas','Relacionamento','CRM','SLA','Qualidade de Atendimento']},
+  design:{label:'Design',keywords:['UI Design','UX Research','Figma','Design System','Prototipagem','Identidade Visual','Acessibilidade','Design Thinking','Wireframe','Usabilidade']},
+
+  financas:{label:'Finanças',keywords:['Excel','Análise Financeira','Fluxo de Caixa','Valuation','Controladoria','Orçamento','Indicadores Financeiros','Forecast','FP&A','Modelagem Financeira']},
+  contabilidade:{label:'Contabilidade & Auditoria',keywords:['Contabilidade','Conciliação','DRE','Balanço Patrimonial','IFRS','CPC','Auditoria','Fiscal','Tributário','Fechamento Contábil']},
+  banking:{label:'Bancos & Serviços Financeiros',keywords:['Serviços Financeiros','Pagamentos','Crédito','Risco','Fraude','Open Finance','Meios de Pagamento','Produtos Financeiros','Compliance','Análise de Dados']},
+  seguros:{label:'Seguros',keywords:['Seguros','Sinistros','Subscrição','Atuarial','Riscos','Apólices','Regulação de Sinistros','Benefícios','Previdência','Compliance']},
+
+  rh:{label:'Recursos Humanos',keywords:['Recrutamento e Seleção','People Analytics','Cultura Organizacional','Onboarding','Treinamento e Desenvolvimento','Clima Organizacional','Employer Branding','RH','Desempenho','Talent Acquisition']},
+  administrativo:{label:'Administrativo',keywords:['Rotinas Administrativas','Excel','Documentação','Relatórios','Atendimento','Processos','ERP','Organização','Indicadores','Gestão de Agenda']},
+  operacoes:{label:'Operações',keywords:['Gestão de Processos','Melhoria Contínua','Indicadores de Desempenho','Planejamento','Redução de Custos','Lean','SLA','Qualidade','Capacidade','Eficiência']},
+  supply:{label:'Supply Chain',keywords:['Supply Chain','Planejamento de Demanda','S&OP','Forecast','Estoque','Logística','Excel','KPIs','Compras','Distribuição']},
+  logistica:{label:'Logística & Transportes',keywords:['Logística','Roteirização','Transportes','Armazém','WMS','TMS','Distribuição','Last Mile','OTIF','Indicadores']},
+  compras:{label:'Compras & Suprimentos',keywords:['Compras','Procurement','Strategic Sourcing','Negociação','Fornecedores','RFP','RFQ','Savings','Contratos','Suprimentos']},
+  manutencao:{label:'Manutenção & Facilities',keywords:['Manutenção Preventiva','Manutenção Corretiva','PCM','Facilities','Ordens de Serviço','MTBF','MTTR','5S','Infraestrutura','Segurança']},
+
+  engenharia:{label:'Engenharia',keywords:['Engenharia','Projetos','Processos','Análise de Falhas','Qualidade','Automação','Lean','Indicadores','CAD','Melhoria Contínua']},
+  civil:{label:'Engenharia Civil & Construção',keywords:['Engenharia Civil','Gestão de Obras','Planejamento de Obras','Orçamento de Obras','AutoCAD','Revit','BIM','Cronograma','Qualidade','Segurança do Trabalho']},
+  arquitetura_urbanismo:{label:'Arquitetura & Urbanismo',keywords:['Arquitetura','Urbanismo','AutoCAD','Revit','BIM','Projeto Arquitetônico','Compatibilização','Renderização','Detalhamento','Legislação Urbanística']},
+  eletronica:{label:'Eletrônica & Hardware',keywords:['Eletrônica','Hardware','Microcontroladores','ESP32','IoT','Circuitos','PCB','Sensores','Sistemas Embarcados','Manutenção Eletrônica']},
+  telecom:{label:'Telecomunicações & Redes',keywords:['Telecomunicações','Redes','TCP/IP','Cisco','Roteamento','Switching','Fibra Óptica','Infraestrutura','Wireless','Monitoramento']},
+
+  agronegocio:{label:'Agronegócio',keywords:['Agronegócio','Agricultura','Produção Rural','Manejo','Irrigação','Safra','Commodities','Logística','Sustentabilidade','Gestão Rural']},
+  sustentabilidade:{label:'Sustentabilidade & ESG',keywords:['ESG','Sustentabilidade','Meio Ambiente','Gestão Ambiental','Emissões','Inventário GEE','Economia Circular','Licenciamento Ambiental','Indicadores ESG','Responsabilidade Social']},
+  pesquisa:{label:'Pesquisa & Inovação',keywords:['Pesquisa','Inovação','P&D','Prototipagem','Experimentação','Validação','Patentes','Pesquisa Aplicada','Metodologia Científica','Desenvolvimento de Produto']},
+  setor_publico:{label:'Setor Público',keywords:['Gestão Pública','Políticas Públicas','Licitações','Contratos Públicos','Administração Pública','Orçamento Público','Indicadores','Compliance','Processos','Projetos']},
+  turismo:{label:'Turismo & Hospitalidade',keywords:['Turismo','Hospitalidade','Hotelaria','Atendimento ao Hóspede','Reservas','Eventos','Experiência do Cliente','Operações','Recepção','Gestão Hoteleira']}
+};
+
+const SOFT_SKILLS = ['comunicação','liderança','trabalho em equipe','colaboração','organização','proatividade','resolução de problemas','pensamento crítico','adaptabilidade','negociação','criatividade','gestão de tempo'];
+const ACTION_VERBS = ['desenvolvi','implementei','criei','automatizei','analisei','gerenciei','liderei','otimizei','reduzi','aumentei','realizei','construí','projetei','integrei','monitorei','apoiei','estruturei','elaborei','coordenei','executei','mantive','diagnostiquei','configurei','administrei'];
+const RESULT_TERMS = ['resultado','impacto','redução','aumento','economia','ganho','melhoria','eficiência','produtividade','tempo','custo','receita','conversão','acurácia','disponibilidade','%','r$'];
+const GENERIC_TERMS = ['apaixonado por','em busca de novos desafios','profissional dedicado','sempre buscando aprender','sou proativo','sou resiliente'];
+const TECH_TERMS = unique(Object.values(AREAS).flatMap(a=>a.keywords));
+
+function emptyState(){
+  return {
+    version:STATE_VERSION,currentView:'landing',lastView:'form',formStep:0,activeBuildTab:'headline',lastScores:null,jobAnalysis:null,
+    data:{
+      nome:'',cargoAlvo:'',area:'tecnologia',nivel:'estudante',headlineAtual:'',sobreAtual:'',formacaoTexto:'',
+      experienciaTexto:'',projetosTexto:'',certificacoesTexto:'',competenciasTexto:'',vagaTexto:''
+    },
+    checklist:{}
+  };
+}
+
+function isPlainObject(v){return v && typeof v==='object' && !Array.isArray(v);}
+function deepMerge(base,incoming){
+  if(!isPlainObject(base) || !isPlainObject(incoming)) return incoming ?? base;
+  const out={...base};
+  Object.keys(incoming).forEach(k=>{out[k]=isPlainObject(base[k])&&isPlainObject(incoming[k])?deepMerge(base[k],incoming[k]):incoming[k];});
+  return out;
+}
+function sanitizeLoadedState(raw){
+  const merged=deepMerge(emptyState(),raw||{});
+  merged.version=STATE_VERSION;
+  merged.currentView=VIEWS.includes(merged.currentView)?merged.currentView:'landing';
+  merged.lastView=VIEWS.includes(merged.lastView)&&merged.lastView!=='landing'?merged.lastView:'form';
+  merged.formStep=clampRange(Number(merged.formStep)||0,0,FORM_STEPS.length-1);
+  if(!AREAS[merged.data.area]) merged.data.area='tecnologia';
+  if(!isPlainObject(merged.checklist)) merged.checklist={};
+  return merged;
+}
+function loadState(){
+  try{
+    let raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw){
+      for(const legacyKey of LEGACY_STORAGE_KEYS){
+        raw=localStorage.getItem(legacyKey);
+        if(raw) break;
+      }
+    }
+    if(!raw) return emptyState();
+    const loaded=sanitizeLoadedState(JSON.parse(raw));
+    try{localStorage.setItem(STORAGE_KEY,JSON.stringify(loaded));}catch{}
+    return loaded;
+  }catch(err){console.warn('Estado salvo inválido; iniciando novo estado.',err);return emptyState();}
+}
+function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch(err){console.warn('Não foi possível salvar o progresso.',err);}}
+let state=loadState();
+
+/* =========================================================================
+   UTILS / SECURITY
+   ========================================================================= */
+function esc(str){return String(str??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function cap(str){str=String(str||'');return str?str.charAt(0).toUpperCase()+str.slice(1):'';}
+function normalize(str){return String(str||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
+function parseList(text){return String(text||'').split(/[\n,;•]+/).map(s=>s.trim()).filter(Boolean);}
+function unique(arr){return [...new Set(arr.filter(Boolean))];}
+function clamp(n){return Math.max(0,Math.min(100,Math.round(Number(n)||0)));}
+function clampRange(n,min,max){return Math.max(min,Math.min(max,n));}
+function wordCount(text){return String(text||'').trim()?String(text).trim().split(/\s+/).length:0;}
+function countMatches(text,terms){const n=normalize(text);return terms.filter(t=>n.includes(normalize(t))).length;}
+function containsAny(text,terms){const n=normalize(text);return terms.some(t=>n.includes(normalize(t)));}
+function regexEscape(s){return String(s).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+function safeLines(text){return String(text||'').split(/\n+/).map(s=>s.trim()).filter(Boolean);}
+function firstMeaningful(text,max=90){const part=String(text||'').split(/\n|\./).map(s=>s.trim()).find(Boolean)||'';return part.slice(0,max);}
+function profileCombined(d){return [d.headlineAtual,d.sobreAtual,d.formacaoTexto,d.experienciaTexto,d.projetosTexto,d.certificacoesTexto,d.competenciasTexto].join(' ');}
+function getArea(){return AREAS[state.data.area]||AREAS.tecnologia;}
+function plural(n,singular,pluralForm){return n===1?singular:pluralForm;}
+function hasMetric(text){return /\b\d+(?:[.,]\d+)?\s*(?:%|x|h|horas?|dias?|min|minutos?|mil|k|m|reais?|r\$)?\b/i.test(String(text||''));}
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove('show'),1800);}
+async function copyText(text){
+  try{await navigator.clipboard.writeText(text);toast('Texto copiado.');}
+  catch{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast('Texto copiado.');}
+}
+function copyField(id){const el=document.getElementById(id);if(el) copyText(el.value||el.textContent||'');}
+
+/* =========================================================================
+   NAVIGATION
+   ========================================================================= */
+function hasAnyData(){const d=state.data;return !!(d.nome||d.cargoAlvo||d.headlineAtual||d.sobreAtual||d.experienciaTexto||d.projetosTexto||d.competenciasTexto);}
+function startDiagnosis(){state.formStep=0;saveState();goTo('form');}
+function resumeProgress(){goTo(state.lastView||'form');}
+function goTo(view){
+  if(!VIEWS.includes(view)) view='landing';
+  state.currentView=view;
+  if(view!=='landing') state.lastView=view;
+  saveState();render();window.scrollTo({top:0,behavior:'smooth'});
+}
+function render(){
+  VIEWS.forEach(v=>{const el=document.getElementById('view-'+v);if(el) el.classList.toggle('visible',v===state.currentView);});
+  renderStageRail();renderLandingResume();
+  if(state.currentView==='form') renderFormStep();
+  if(state.currentView==='diagnostic') renderDiagnostic();
+  if(state.currentView==='build') renderBuild();
+  if(state.currentView==='job') renderJob();
+  if(state.currentView==='network') renderNetwork();
+  if(state.currentView==='plan') renderPlan();
+  if(state.currentView==='result') renderResult();
+}
+function renderStageRail(){
+  const rail=document.getElementById('stageRail');
+  const currentIdx=STAGES.findIndex(([v])=>v===state.currentView);
+  rail.innerHTML=STAGES.map(([v,label],i)=>`<div class="stage ${i<currentIdx?'done':i===currentIdx?'active':''}"><span class="num">${String(i+1).padStart(2,'0')}</span>${esc(label)}</div>`).join('');
+}
+function renderLandingResume(){
+  const btn=document.getElementById('resumeBtn');btn.style.display=hasAnyData()?'inline-block':'none';
+  const scores=state.lastScores;
+  if(scores&&hasAnyData()){
+    document.getElementById('landingScore').textContent=scores.overall;
+    document.getElementById('landingScoreSub').textContent=getScoreLevel(scores.overall).label.toLowerCase();
+    const lit=Math.round(scores.overall/20);
+    [...document.querySelectorAll('#landingPanes .pane')].forEach((p,i)=>p.classList.toggle('lit',i<lit));
+  }
+}
+
+/* =========================================================================
+   FORM / VALIDATION
+   ========================================================================= */
+const FORM_RENDERERS={
+  objetivo(){const d=state.data;return `
+    <div class="field"><label for="f-nome">Como você quer ser chamado no plano?</label><input type="text" id="f-nome" value="${esc(d.nome)}" placeholder="Ex: Sandro" autocomplete="name"><div class="field-meta"><span id="fb-nome" class="feedback neutral">Seu nome serve apenas para personalizar os textos.</span><span class="char-count" id="count-nome"></span></div></div>
+    <div class="row-2">
+      <div class="field"><label for="f-cargo">Cargo-alvo</label><input type="text" id="f-cargo" value="${esc(d.cargoAlvo)}" placeholder="Ex: Analista de Dados"><div class="field-meta"><span id="fb-cargo" class="feedback neutral"></span><span class="char-count" id="count-cargo"></span></div></div>
+      <div class="field"><label for="f-area">Área</label><select id="f-area">${Object.entries(AREAS).map(([k,v])=>`<option value="${k}" ${d.area===k?'selected':''}>${esc(v.label)}</option>`).join('')}</select><p class="hint">A área define o repertório de palavras-chave usado no diagnóstico.</p></div>
+    </div>
+    <div class="field"><label for="f-nivel">Nível de carreira</label><select id="f-nivel">${['estudante','estagiário','júnior','pleno','sênior'].map(n=>`<option value="${n}" ${d.nivel===n?'selected':''}>${cap(n)}</option>`).join('')}</select><p class="hint">Isso ajusta o tom das sugestões, sem inventar senioridade.</p></div>`;},
+  headline(){return pasteField('f-headline','Cole sua headline atual do LinkedIn','No LinkedIn, a headline aparece logo abaixo do seu nome.','Ex: Estudante de Ciência da Computação | Python, SQL e Cloud',state.data.headlineAtual,3,'headline');},
+  sobre(){return pasteField('f-sobre','Cole o texto da seção "Sobre"','Se não tiver nada escrito, pode deixar em branco.','Cole aqui sua seção Sobre...',state.data.sobreAtual,9,'sobre');},
+  formacao(){return pasteField('f-formacao','Cole sua(s) formação(ões)','Inclua curso, instituição e período, como aparecem no LinkedIn.','Ex: Ciência da Computação — Faculdade X (2024–2028)',state.data.formacaoTexto,6,'formacao');},
+  experiencias(){return pasteField('f-experiencias','Cole suas experiências','Inclua cargo, empresa, período e descrição.','Cole aqui uma ou mais experiências...',state.data.experienciaTexto,11,'experiencias');},
+  projetos(){return pasteField('f-projetos','Cole seus projetos','Inclua nome, descrição e link, se houver.','Cole aqui seus projetos...',state.data.projetosTexto,9,'projetos');},
+  certificacoes(){return pasteField('f-certificacoes','Cole suas certificações','Inclua nome, instituição emissora e ano sempre que possível.','Ex: Data Analytics Essentials — Cisco (2026)',state.data.certificacoesTexto,7,'certificacoes');},
+  competencias(){return pasteField('f-competencias','Cole suas competências','Separe por vírgula ou uma por linha.','Ex: Python, SQL, Power BI, Comunicação',state.data.competenciasTexto,7,'competencias');},
+  revisao(){const d=state.data;const check=v=>v&&String(v).trim()?'<span style="color:var(--teal-300)">✓ preenchido</span>':'<span class="muted">— em branco</span>';return `<p class="lede" style="font-size:14px">Confira rapidamente antes de gerar o diagnóstico.</p><div class="entry-card"><b>${esc(d.nome)||'—'}</b> · ${esc(d.cargoAlvo)||'cargo não definido'} · ${esc(getArea().label)} · ${cap(d.nivel)}<br><br><b>Headline:</b> ${check(d.headlineAtual)}<br><b>Sobre:</b> ${check(d.sobreAtual)}<br><b>Formação:</b> ${check(d.formacaoTexto)}<br><b>Experiências:</b> ${check(d.experienciaTexto)}<br><b>Projetos:</b> ${check(d.projetosTexto)}<br><b>Certificações:</b> ${check(d.certificacoesTexto)}<br><b>Competências:</b> ${check(d.competenciasTexto)}</div><div class="disclaimer">Campos em branco não impedem o diagnóstico; eles apenas reduzem a precisão e aparecem como oportunidades de melhoria.</div>`;}
+};
+function pasteField(id,label,hint,placeholder,value,rows,key){return `<div class="field"><label for="${id}">${esc(label)}</label><textarea id="${id}" rows="${rows}" placeholder="${esc(placeholder)}">${esc(value)}</textarea><div class="field-meta"><span id="fb-${key}" class="feedback neutral">${esc(hint)}</span><span class="char-count" id="count-${key}">${String(value||'').length} caracteres</span></div></div>`;}
+function renderFormStep(){
+  state.formStep=clampRange(state.formStep,0,FORM_STEPS.length-1);const idx=state.formStep,key=FORM_STEPS[idx];
+  document.getElementById('stepEyebrow').textContent=`Etapa ${idx+1} de ${FORM_STEPS.length}`;
+  document.getElementById('stepTitle').textContent=FORM_TITLES[key];
+  const pct=Math.round(((idx+1)/FORM_STEPS.length)*100);document.getElementById('progressFill').style.width=pct+'%';document.getElementById('progressText').textContent=pct+'% concluído';
+  document.getElementById('btnBack').disabled=idx===0;document.getElementById('btnNext').textContent=idx===FORM_STEPS.length-1?'Gerar diagnóstico':'Avançar';
+  document.getElementById('stepBody').innerHTML=FORM_RENDERERS[key]();attachStepListeners(key);refreshValidation(key);
+}
+function attachStepListeners(key){
+  const f=id=>document.getElementById(id);
+  if(key==='objetivo'){
+    [['f-nome','nome'],['f-cargo','cargoAlvo']].forEach(([id,k])=>f(id).addEventListener('input',e=>{state.data[k]=e.target.value;saveState();refreshValidation('objetivo');}));
+    f('f-area').addEventListener('change',e=>{state.data.area=e.target.value;saveState();refreshValidation('objetivo');});
+    f('f-nivel').addEventListener('change',e=>{state.data.nivel=e.target.value;saveState();});return;
+  }
+  if(key==='revisao') return;
+  const dataKey=FIELD_KEY[key],el=f('f-'+key);if(el&&dataKey) el.addEventListener('input',e=>{state.data[dataKey]=e.target.value;saveState();refreshValidation(key);});
+}
+function setFeedback(id,type,text){const el=document.getElementById(id);if(!el)return;el.className='feedback '+type;el.textContent=text;}
+function setCount(id,text){const el=document.getElementById(id);if(el)el.textContent=`${String(text||'').length} caracteres`;}
+function refreshValidation(key){
+  const d=state.data;
+  if(key==='objetivo'){
+    setCount('count-nome',d.nome);setCount('count-cargo',d.cargoAlvo);
+    setFeedback('fb-cargo',d.cargoAlvo.trim()?'ok':'warn',d.cargoAlvo.trim()?'Cargo-alvo definido.':'Definir um cargo-alvo deixará o diagnóstico mais preciso.');return;
+  }
+  const value=d[FIELD_KEY[key]]||'';setCount('count-'+key,value);
+  if(key==='headline') setFeedback('fb-headline',!value.trim()?'warn':value.trim().length<35?'warn':'ok',!value.trim()?'Sem headline: a construção guiada poderá criar uma do zero.':value.trim().length<35?'Sua headline parece curta; talvez falte cargo, área ou competências.':'Boa quantidade de informação para analisar.');
+  if(key==='sobre') setFeedback('fb-sobre',!value.trim()?'warn':value.length<180?'warn':'ok',!value.trim()?'Sem seção Sobre: o diagnóstico vai marcar essa oportunidade.':value.length<180?'Seu Sobre parece curto; tente incluir contexto, competências e evidências.':'Há contexto suficiente para uma análise mais útil.');
+  if(key==='formacao') setFeedback('fb-formacao',value.trim()?'ok':'neutral',value.trim()?'Formação registrada.':'Você pode deixar em branco, mas a seção ajuda a contextualizar sua trajetória.');
+  if(key==='experiencias') setFeedback('fb-experiencias',!value.trim()?'warn':value.length<120?'warn':'ok',!value.trim()?'Sem experiências informadas; projetos podem ganhar mais peso na narrativa.':value.length<120?'Quanto mais contexto real você fornecer, melhor será a análise.':'Experiência com contexto suficiente para procurar ações, ferramentas e resultados.');
+  if(key==='projetos') setFeedback('fb-projetos',value.trim()?'ok':'neutral',value.trim()?'Projetos registrados para análise.':'Projetos são especialmente úteis para estudantes e início de carreira.');
+  if(key==='certificacoes') setFeedback('fb-certificacoes',value.trim()?'ok':'neutral',value.trim()?'Certificações registradas.':'Certificações são opcionais; qualidade e relevância importam mais que volume.');
+  if(key==='competencias'){const n=parseList(value).length;setFeedback('fb-competencias',n>=5?'ok':n?'warn':'warn',n>=5?`${n} competências registradas.`:n?`Apenas ${n}; tente incluir competências realmente dominadas e relevantes para a área.`:'Competências ajudam recrutadores a encontrar seu perfil.');}
+}
+function stepNext(){if(state.formStep<FORM_STEPS.length-1){state.formStep++;state.lastView='form';saveState();renderFormStep();window.scrollTo({top:0,behavior:'smooth'});}else runDiagnosisFlow();}
+function stepBack(){if(state.formStep>0){state.formStep--;saveState();renderFormStep();window.scrollTo({top:0,behavior:'smooth'});}}
+
+/* =========================================================================
+   SCORING / ANALYSIS
+   ========================================================================= */
+function optimalLengthScore(len,minGood,maxGood,maxUseful){if(!len)return 0;if(len<minGood)return clamp((len/minGood)*70);if(len<=maxGood)return 90;if(len<=maxUseful)return clamp(90-((len-maxGood)/(maxUseful-maxGood))*15);return 65;}
+function scoreHeadline(d){
+  const text=(d.headlineAtual||'').trim();if(!text)return 0;const areaKw=getArea().keywords;let s=0;
+  const len=text.length;s+=optimalLengthScore(len,40,160,220)*.28;
+  if(d.cargoAlvo&&normalize(text).includes(normalize(d.cargoAlvo).split(' ')[0]))s+=18;
+  const kw=countMatches(text,areaKw);s+=Math.min(kw*8,24);
+  if(/[|•·—-]/.test(text))s+=8;if(wordCount(text)>=5)s+=8;
+  if(/([!★⭐🚀🔥])\1{1,}|[!★⭐🚀🔥]{3,}/.test(text))s-=10;
+  if(wordCount(text)>30)s-=10;return clamp(s);
+}
+function scoreSobre(d){
+  const text=(d.sobreAtual||'').trim();if(!text)return 0;let s=0;const areaKw=getArea().keywords;
+  s+=optimalLengthScore(text.length,260,1400,2200)*.30;
+  s+=Math.min(countMatches(text,areaKw)*5,20);
+  if(d.cargoAlvo&&containsAny(text,[d.cargoAlvo]))s+=9;
+  if(containsAny(text,ACTION_VERBS))s+=10;if(hasMetric(text)||containsAny(text,RESULT_TERMS))s+=12;
+  if(d.projetosTexto&&containsAny(text,['projeto','desenvolvi','construí','implementei']))s+=7;
+  const generic=countMatches(text,GENERIC_TERMS);s-=Math.min(generic*4,12);
+  if(wordCount(text)>350)s-=7;return clamp(s);
+}
+function scoreExperiencia(d){
+  const text=(d.experienciaTexto||'').trim();if(!text)return 0;let s=0;const areaKw=getArea().keywords;
+  s+=optimalLengthScore(text.length,180,1800,3000)*.25;
+  const actions=countMatches(text,ACTION_VERBS);s+=Math.min(actions*5,20);
+  s+=Math.min(countMatches(text,areaKw)*4,20);
+  if(hasMetric(text))s+=15;if(containsAny(text,RESULT_TERMS))s+=10;
+  if(/[•\n-]/.test(text))s+=5;if(wordCount(text)>500)s-=8;return clamp(s);
+}
+function scoreProjetos(d){
+  const text=(d.projetosTexto||'').trim();if(!text)return 0;let s=15;s+=optimalLengthScore(text.length,120,1200,2200)*.2;
+  if(containsAny(text,['problema','desafio','objetivo','dor']))s+=15;if(containsAny(text,['solução','desenvolvi','implementei','criei','construí','automatizei']))s+=18;
+  if(countMatches(text,TECH_TERMS)>=1)s+=18;if(containsAny(text,RESULT_TERMS)||hasMetric(text))s+=18;if(/https?:\/\/|github\.com|vercel\.app|netlify\.app/i.test(text))s+=8;return clamp(s);
+}
+function scoreCertificacoes(d){
+  const text=(d.certificacoesTexto||'').trim();if(!text)return 0;const lines=safeLines(text);let s=Math.min(lines.length*14,56);
+  if(/\b20\d{2}\b/.test(text))s+=14;if(/[—|-].+\(?20\d{2}\)?/i.test(text))s+=12;
+  s+=Math.min(countMatches(text,getArea().keywords)*4,18);return clamp(s);
+}
+function scoreCompetencias(d){
+  const skills=parseList(d.competenciasTexto);if(!skills.length)return 0;let s=Math.min(skills.length*8,56);
+  const areaMatches=getArea().keywords.filter(k=>skills.some(v=>normalize(v).includes(normalize(k))||normalize(k).includes(normalize(v)))).length;s+=Math.min(areaMatches*7,28);
+  const soft=skills.some(v=>SOFT_SKILLS.some(k=>normalize(v).includes(normalize(k))));if(soft)s+=8;if(skills.length>20)s-=8;return clamp(s);
+}
+function scoreKeywords(d){const areaKw=getArea().keywords,combined=profileCombined(d);const matched=countMatches(combined,areaKw);return clamp((matched/Math.max(areaKw.length,1))*100);}
+function computeScores(d){
+  const scores={headline:scoreHeadline(d),sobre:scoreSobre(d),experiencia:scoreExperiencia(d),projetos:scoreProjetos(d),certificacoes:scoreCertificacoes(d),competencias:scoreCompetencias(d),palavrasChave:scoreKeywords(d)};
+  const weights={headline:.17,sobre:.17,experiencia:.20,projetos:.13,certificacoes:.08,competencias:.12,palavrasChave:.13};
+  scores.overall=clamp(Object.entries(weights).reduce((sum,[k,w])=>sum+scores[k]*w,0));return scores;
+}
+function getScoreLevel(score){
+  if(score<=39)return{label:'Perfil pouco otimizado',text:'Há bastante informação que ainda não está sendo comunicada com clareza.'};
+  if(score<=59)return{label:'Perfil em construção',text:'A base existe, mas faltam sinais de posicionamento, evidências e palavras-chave.'};
+  if(score<=74)return{label:'Bom perfil',text:'Seu perfil já comunica valor, mas alguns ajustes podem deixá-lo mais competitivo.'};
+  if(score<=89)return{label:'Perfil competitivo',text:'Seu posicionamento está claro e consistente; foque em refinamento e visibilidade.'};
+  return{label:'Perfil de destaque',text:'As principais seções estão fortes; mantenha evidências, atualização e consistência.'};
+}
+function sectionAnalysis(key,score,d){
+  const area=getArea(),skills=parseList(d.competenciasTexto),positives=[],gaps=[];let suggestion='';
+  if(key==='headline'){
+    const t=d.headlineAtual||'';if(t)positives.push('Você já possui uma headline preenchida.');if(d.cargoAlvo&&normalize(t).includes(normalize(d.cargoAlvo).split(' ')[0]))positives.push('O cargo-alvo aparece na headline.');if(countMatches(t,area.keywords)>=2)positives.push('Há palavras-chave relevantes da área.');
+    if(!t)gaps.push('A headline está vazia.');if(d.cargoAlvo&&!normalize(t).includes(normalize(d.cargoAlvo).split(' ')[0]))gaps.push('O cargo-alvo não aparece com clareza.');if(countMatches(t,area.keywords)<2)gaps.push('Poucas competências ou palavras-chave da área aparecem.');suggestion=buildHeadlineVariations(d)[0];
+  }
+  if(key==='sobre'){
+    const t=d.sobreAtual||'';if(t.length>=260)positives.push('Há espaço suficiente para contextualizar sua trajetória.');if(containsAny(t,ACTION_VERBS))positives.push('O texto traz sinais de ação e experiência.');if(hasMetric(t)||containsAny(t,RESULT_TERMS))positives.push('Há sinais de impacto ou resultado.');
+    if(!t)gaps.push('A seção Sobre está vazia.');if(t&&t.length<260)gaps.push('O texto está curto para explicar contexto, competências e objetivo.');if(t&&!containsAny(t,ACTION_VERBS))gaps.push('Faltam evidências do que você já fez.');if(t&&!hasMetric(t)&&!containsAny(t,RESULT_TERMS))gaps.push('Resultados ou impactos reais não aparecem.');suggestion='Estruture em: quem você é → contexto/formação → competências → evidências → objetivo profissional.';
+  }
+  if(key==='experiencia'){
+    const t=d.experienciaTexto||'';if(containsAny(t,ACTION_VERBS))positives.push('Há verbos de ação na descrição.');if(countMatches(t,area.keywords)>=2)positives.push('Ferramentas ou termos da área aparecem.');if(hasMetric(t))positives.push('Existem números ou métricas, o que fortalece evidências.');
+    if(!t)gaps.push('Nenhuma experiência foi informada.');if(t&&!containsAny(t,ACTION_VERBS))gaps.push('As responsabilidades podem ser escritas com verbos de ação.');if(t&&!hasMetric(t))gaps.push('Não identificamos métricas; adicione apenas se houver resultados reais.');suggestion='Use o padrão: Ação + atividade + ferramenta + resultado real, quando existir.';
+  }
+  if(key==='projetos'){
+    const t=d.projetosTexto||'';if(containsAny(t,['problema','desafio','objetivo']))positives.push('O contexto ou problema do projeto aparece.');if(containsAny(t,['solução','desenvolvi','implementei','criei','construí']))positives.push('A solução ou execução está descrita.');if(countMatches(t,TECH_TERMS)>=1)positives.push('Tecnologias ou ferramentas estão identificadas.');
+    if(!t)gaps.push('Nenhum projeto foi informado.');if(t&&!containsAny(t,['problema','desafio','objetivo']))gaps.push('Falta deixar claro qual problema ou objetivo motivou o projeto.');if(t&&!containsAny(t,RESULT_TERMS)&&!hasMetric(t))gaps.push('Não identificamos resultado ou aprendizado final.');suggestion='Estruture cada projeto em: Problema → Solução → Tecnologias → Resultado ou aprendizado.';
+  }
+  if(key==='certificacoes'){
+    const t=d.certificacoesTexto||'',lines=safeLines(t);if(lines.length>=2)positives.push(`${lines.length} itens foram identificados.`);if(/\b20\d{2}\b/.test(t))positives.push('Há ano de conclusão em pelo menos um item.');if(!t)gaps.push('Nenhuma certificação foi informada.');if(t&&!/\b20\d{2}\b/.test(t))gaps.push('Inclua o ano quando disponível.');suggestion='Priorize certificações relevantes para sua direção profissional e mantenha nome, emissor e ano.';
+  }
+  if(key==='competencias'){
+    if(skills.length>=5)positives.push(`${skills.length} competências foram informadas.`);if(countMatches(d.competenciasTexto,area.keywords)>=3)positives.push('Há boa aderência inicial à área escolhida.');if(skills.some(v=>SOFT_SKILLS.some(s=>normalize(v).includes(normalize(s)))))positives.push('Há equilíbrio com competência comportamental.');
+    if(skills.length<5)gaps.push('Poucas competências foram informadas.');if(countMatches(d.competenciasTexto,area.keywords)<3)gaps.push('Faltam mais termos diretamente ligados à área escolhida.');suggestion='Adicione apenas competências que você realmente consegue sustentar com estudo, projeto ou experiência.';
+  }
+  if(key==='palavrasChave'){
+    const matched=area.keywords.filter(k=>normalize(profileCombined(d)).includes(normalize(k)));if(matched.length)positives.push(`${matched.length} de ${area.keywords.length} palavras-chave principais já aparecem.`);const missing=area.keywords.filter(k=>!matched.includes(k));if(missing.length)gaps.push(`Termos ainda não identificados: ${missing.slice(0,4).join(', ')}${missing.length>4?'…':''}`);suggestion='Distribua palavras-chave de forma natural em headline, Sobre, experiências, projetos e competências — sem keyword stuffing.';
+  }
+  if(!positives.length)positives.push('Ainda não há evidências suficientes para destacar um ponto forte específico.');if(!gaps.length)gaps.push('Nenhuma lacuna crítica foi identificada nesta seção.');
+  return{score,positives,gaps,suggestion};
+}
+function buildRecommendations(scores,d){
+  const map=[['headline','Headline'],['sobre','Sobre'],['experiencia','Experiências'],['projetos','Projetos'],['competencias','Competências'],['palavrasChave','Palavras-chave'],['certificacoes','Certificações']];
+  const items=map.map(([k,label])=>({k,label,score:scores[k]})).sort((a,b)=>a.score-b.score).filter(x=>x.score<78).slice(0,4);
+  if(!items.length)return[['Perfil sólido','Seu perfil já cobre os fundamentos. Agora o maior ganho tende a vir de refinamento, consistência e networking.']];
+  return items.map(x=>{const a=sectionAnalysis(x.k,x.score,d);return[x.label,a.gaps[0]+' '+a.suggestion];});
+}
+
+/* =========================================================================
+   AI SERVICE ABSTRACTION
+   ========================================================================= */
+const AIService={
+  mode:'local',
+  async analyzeProfile(data){return{scores:computeScores(data)};},
+  async generateHeadline(data){return buildHeadlineVariations(data);},
+  async generateAbout(data){return buildAbout(data);},
+  async analyzeExperience(data){return analyzeExperienceText(data);},
+  async analyzeProjects(data){return analyzeProjectText(data);},
+  async compareJobDescription(data,jobText){return compareJobLocal(data,jobText);}
+};
+/*
+  Integração futura recomendada:
+  Frontend -> POST /api/analyze-profile -> Backend próprio -> OpenAI/Claude/Gemini
+  Nunca armazene API keys neste HTML. Troque a implementação de AIService por chamadas fetch ao backend.
+*/
+
+async function runDiagnosisFlow(){
+  const overlay=document.getElementById('loadingOverlay'),title=document.getElementById('loadingTitle'),status=document.getElementById('loadingStatus');
+  overlay.classList.add('visible');overlay.setAttribute('aria-hidden','false');
+  const phases=[
+    ['Analisando sua trajetória...','Organizando as informações que você forneceu.'],
+    ['Identificando competências...','Cruzando evidências, ferramentas e palavras-chave.'],
+    ['Avaliando seu posicionamento...','Comparando clareza, estrutura e aderência à área.'],
+    ['Construindo recomendações...','Priorizando o que pode gerar mais impacto no perfil.']
+  ];
+  for(const [t,s] of phases){title.textContent=t;status.textContent=s;await new Promise(r=>setTimeout(r,240));}
+  const result=await AIService.analyzeProfile(state.data);state.lastScores=result.scores;state.currentView='diagnostic';state.lastView='diagnostic';saveState();overlay.classList.remove('visible');overlay.setAttribute('aria-hidden','true');render();window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* =========================================================================
+   DIAGNOSTIC VIEW
+   ========================================================================= */
+function renderDiagnostic(){
+  const scores=state.lastScores||computeScores(state.data);state.lastScores=scores;saveState();
+  document.getElementById('gaugeMain').style.setProperty('--pct',scores.overall);document.getElementById('gaugeNum').innerHTML=`${scores.overall}<span>de 100</span>`;
+  const level=getScoreLevel(scores.overall);document.getElementById('scoreLevel').textContent=level.label;document.getElementById('scoreLevelText').textContent=level.text;
+  const rows=[['Headline',scores.headline],['Sobre',scores.sobre],['Experiências',scores.experiencia],['Projetos',scores.projetos],['Certificações',scores.certificacoes],['Competências',scores.competencias],['Palavras-chave',scores.palavrasChave]];
+  document.getElementById('subscoreList').innerHTML=rows.map(([label,val])=>`<div class="subscore-row"><span>${esc(label)}</span><div class="subscore-bar"><i style="width:${val}%"></i></div><span class="val">${val}</span></div>`).join('');
+  const analysisMap=[['headline','Headline'],['sobre','Sobre'],['experiencia','Experiências'],['projetos','Projetos'],['certificacoes','Certificações'],['competencias','Competências'],['palavrasChave','Palavras-chave']];
+  document.getElementById('analysisGrid').innerHTML=analysisMap.map(([k,label])=>{const a=sectionAnalysis(k,scores[k],state.data);return `<article class="analysis-card"><span class="analysis-score">${a.score}/100</span><h3>${esc(label)}</h3><span class="tag-label">O que está bom</span><ul class="mini-list good">${a.positives.map(x=>`<li>${esc(x)}</li>`).join('')}</ul><span class="tag-label" style="margin-top:14px;color:#f29a88">Pode melhorar</span><ul class="mini-list gap">${a.gaps.map(x=>`<li>${esc(x)}</li>`).join('')}</ul><div class="suggestion-inline"><b>Sugestão:</b> ${esc(a.suggestion)}</div></article>`;}).join('');
+  const recos=buildRecommendations(scores,state.data);document.getElementById('recoList').innerHTML=recos.map(([tag,text])=>`<li><span aria-hidden="true">◆</span><span><b>${esc(tag)}:</b> ${esc(text)}</span></li>`).join('');
+}
+
+/* =========================================================================
+   PROFILE BUILDER
+   ========================================================================= */
+const BUILD_TABS=[['headline','Headline'],['about','Sobre'],['exp','Experiências'],['projetos','Projetos'],['cert','Certificações'],['kw','Palavras-chave']];
+function relevantSkills(d,max=4){const list=parseList(d.competenciasTexto);const area=getArea().keywords;return unique([...list.filter(s=>area.some(k=>normalize(s).includes(normalize(k))||normalize(k).includes(normalize(s)))),...list]).slice(0,max);}
+function buildHeadlineVariations(d){
+  const cargo=d.cargoAlvo||'[cargo-alvo]',area=getArea().label,skills=relevantSkills(d,4),s1=skills.slice(0,3).join(' • ')||'[competências principais]';
+  const project=firstMeaningful(d.projetosTexto,55);const direct=`${cargo} | ${area} | ${s1}`;
+  const strategic=`${cap(d.nivel)} em ${area} | ${s1}${project?` | Projetos em ${project}`:''}`;
+  const recruiter=`${cargo} | ${area} | ${unique([...skills,getArea().keywords.filter(k=>normalize(profileCombined(d)).includes(normalize(k)))]).slice(0,4).join(' • ')||'[palavras-chave relevantes]'}`;
+  return [direct,strategic,recruiter];
+}
+function buildAbout(d){
+  const area=getArea().label,cargo=d.cargoAlvo||'[cargo-alvo]',skills=relevantSkills(d,4),formation=firstMeaningful(d.formacaoTexto,150),experience=firstMeaningful(d.experienciaTexto,180),project=firstMeaningful(d.projetosTexto,180);
+  const parts=[];
+  parts.push(`${d.nome?`Sou ${d.nome}, `:'Sou '}${d.nivel||'profissional'} com foco em ${area} e objetivo de atuar como ${cargo}.`);
+  if(formation)parts.push(`Minha formação inclui ${formation}.`);
+  if(skills.length)parts.push(`Tenho desenvolvido competências em ${skills.join(', ')}.`);
+  if(experience)parts.push(`Na minha trajetória, já atuei com ${experience}.`);
+  if(project)parts.push(`Entre os projetos que ajudam a demonstrar essa direção está ${project}.`);
+  if(!experience&&!project)parts.push('[Adicione aqui uma evidência real: experiência, projeto, atividade acadêmica ou resultado que demonstre suas competências.]');
+  parts.push(`Meu objetivo é continuar aprofundando conhecimentos em ${area} e contribuir em desafios nos quais eu possa transformar problemas em soluções práticas.`);
+  return parts.join('\n\n');
+}
+function analyzeExperienceText(d){const t=d.experienciaTexto||'';return{actions:containsAny(t,ACTION_VERBS),tools:countMatches(t,TECH_TERMS)>0,metrics:hasMetric(t),impact:containsAny(t,RESULT_TERMS),text:t};}
+function analyzeProjectText(d){const t=d.projetosTexto||'';return{problem:containsAny(t,['problema','desafio','objetivo','dor']),solution:containsAny(t,['solução','desenvolvi','implementei','criei','construí','automatizei']),tools:countMatches(t,TECH_TERMS)>0,result:containsAny(t,RESULT_TERMS)||hasMetric(t),link:/https?:\/\/|github\.com/i.test(t),text:t};}
+function highlightKeywords(rawText,kwList,emptyMsg){let text=esc(rawText);if(!String(rawText||'').trim())return`<p class="empty-note">${esc(emptyMsg)}</p>`;kwList.forEach(k=>{const re=new RegExp('('+regexEscape(esc(k))+')','ig');text=text.replace(re,'<b style="color:var(--gold-300)">$1</b>');});return`<div class="entry-card"><p style="font-size:14px;color:rgba(247,244,238,.82);white-space:pre-line;margin:0">${text}</p></div>`;}
+function signal(label,value){return`<div class="signal ${value?'yes':'no'}"><strong>${value?'✓ identificado':'○ não identificado'}</strong>${esc(label)}</div>`;}
+function renderBuild(){
+  const d=state.data,kwList=getArea().keywords;document.getElementById('buildTabs').innerHTML=BUILD_TABS.map(([id,label])=>`<button class="tab-btn ${state.activeBuildTab===id?'active':''}" role="tab" aria-selected="${state.activeBuildTab===id}" data-tab="${id}" onclick="switchTab('${id}')">${esc(label)}</button>`).join('');
+  const vars=buildHeadlineVariations(d);document.getElementById('pane-headline').innerHTML=`<p class="lede" style="font-size:14px">Três abordagens diferentes, sempre usando apenas cargo, área e competências informadas.</p><div class="suggestion-box"><span class="tag-label">Sua headline atual</span><p style="margin:0;color:rgba(247,244,238,.75)">${esc(d.headlineAtual)||'<em class="muted">nada colado ainda</em>'}</p></div>${vars.map((v,i)=>`<div class="suggestion-box"><span class="tag-label">${['Direta','Estratégica','Recrutador'][i]}</span><textarea id="headline-${i}" rows="2">${esc(v)}</textarea><button class="copy-btn" onclick="copyField('headline-${i}')">Copiar texto</button></div>`).join('')}`;
+  const about=buildAbout(d);document.getElementById('pane-about').innerHTML=`<p class="lede" style="font-size:14px">Estrutura: posicionamento → formação → competências → evidências → objetivo.</p><div class="suggestion-box"><span class="tag-label">Seu Sobre atual</span><p style="white-space:pre-line;margin:0;color:rgba(247,244,238,.75)">${esc(d.sobreAtual)||'<em class="muted">nada colado ainda</em>'}</p></div><div class="suggestion-box"><span class="tag-label">Sobre — rascunho editável</span><textarea id="aboutText" rows="13">${esc(about)}</textarea><button class="copy-btn" onclick="copyField('aboutText')">Copiar texto</button></div>`;
+  const exp=analyzeExperienceText(d);document.getElementById('pane-exp').innerHTML=`<p class="lede" style="font-size:14px">A ferramenta procura sinais de ação, ferramentas, métricas e impacto.</p>${highlightKeywords(d.experienciaTexto,kwList,'Nada colado ainda — volte ao formulário para adicionar experiências.')}<div class="signal-grid">${signal('Verbos de ação',exp.actions)}${signal('Ferramentas / tecnologias',exp.tools)}${signal('Números / métricas',exp.metrics)}${signal('Impacto / resultado',exp.impact)}</div><div class="suggestion-inline"><b>Estrutura recomendada:</b> Ação + atividade + ferramenta + resultado real. Se não houver métrica, não invente: descreva contribuição, escopo ou aprendizado.</div>`;
+  const proj=analyzeProjectText(d);document.getElementById('pane-projetos').innerHTML=`<p class="lede" style="font-size:14px">Um projeto forte explica por que existiu, o que você fez e o que aconteceu no final.</p>${highlightKeywords(d.projetosTexto,kwList,'Nada colado ainda — projetos podem ser uma das melhores evidências para início de carreira.')}<div class="signal-grid">${signal('Problema / objetivo',proj.problem)}${signal('Solução / execução',proj.solution)}${signal('Tecnologias',proj.tools)}${signal('Resultado / aprendizado',proj.result)}</div><div class="suggestion-inline"><b>Estrutura recomendada:</b> Problema → Solução → Tecnologias → Resultado. Link é um bônus quando houver demonstração pública.</div>`;
+  const certLines=safeLines(d.certificacoesTexto);document.getElementById('pane-cert').innerHTML=`<p class="lede" style="font-size:14px">Certificações funcionam melhor quando reforçam a direção profissional, não apenas quando aumentam volume.</p>${highlightKeywords(d.certificacoesTexto,kwList,'Nada colado ainda — certificações são opcionais.')}<div class="suggestion-inline"><b>${certLines.length} ${plural(certLines.length,'item identificado','itens identificados')}.</b> Priorize nome exato, instituição emissora e ano de conclusão quando disponível.</div>`;
+  const skills=parseList(d.competenciasTexto),combined=profileCombined(d);document.getElementById('pane-kw').innerHTML=`<p class="lede" style="font-size:14px">Verde = aparece nas competências; dourado = aparece em outra seção; vermelho = não foi identificado nas informações fornecidas.</p><div class="kw-grid">${kwList.map(k=>{const inSkills=skills.some(s=>normalize(s).includes(normalize(k))||normalize(k).includes(normalize(s))),elsewhere=normalize(combined).includes(normalize(k));return`<span class="kw ${inSkills?'have':elsewhere?'emphasis':'missing'}">${inSkills?'✓':elsewhere?'•':'+'} ${esc(k)}</span>`;}).join('')}</div><div class="disclaimer">Não adicione palavras-chave que você não consegue sustentar com conhecimento, experiência, projeto ou estudo real.</div>`;
+  switchTab(state.activeBuildTab,true);
+}
+function switchTab(id,silent=false){if(!BUILD_TABS.some(([x])=>x===id))id='headline';state.activeBuildTab=id;if(!silent)saveState();document.querySelectorAll('.tab-btn').forEach(b=>{const active=b.dataset.tab===id;b.classList.toggle('active',active);b.setAttribute('aria-selected',active);});document.querySelectorAll('.tab-pane').forEach(p=>p.classList.toggle('active',p.id==='pane-'+id));}
+
+/* =========================================================================
+   JOB MATCHING
+   ========================================================================= */
+const JOB_STOPWORDS=new Set(['para','com','uma','um','das','dos','de','da','do','que','em','e','ou','na','no','nos','nas','por','como','ser','ter','ao','aos','as','os','se','sua','seu','suas','seus','vaga','cargo','empresa','time','área','area','experiência','experiencia','conhecimento','desejável','desejavel','requisitos','responsabilidades','atividades']);
+function extractJobTerms(text){
+  const known=TECH_TERMS.filter(k=>normalize(text).includes(normalize(k)));
+  const tokens=normalize(text).replace(/[^a-z0-9+#.\- ]/g,' ').split(/\s+/).filter(t=>t.length>=4&&!JOB_STOPWORDS.has(t));
+  const freq={};tokens.forEach(t=>freq[t]=(freq[t]||0)+1);const frequent=Object.entries(freq).filter(([,n])=>n>=2).sort((a,b)=>b[1]-a[1]).map(([t])=>t).slice(0,12);
+  return unique([...known,...frequent]).slice(0,18);
+}
+function compareJobLocal(d,jobText){
+  const terms=extractJobTerms(jobText),combined=profileCombined(d),skills=d.competenciasTexto||'',coreSections=[d.headlineAtual,d.sobreAtual,d.experienciaTexto,d.projetosTexto].join(' ');
+  const found=[],highlight=[],missing=[];
+  terms.forEach(term=>{const inProfile=normalize(combined).includes(normalize(term)),inSkills=normalize(skills).includes(normalize(term)),inCore=normalize(coreSections).includes(normalize(term));if(inProfile&&(!inCore&&inSkills))highlight.push(term);else if(inProfile)found.push(term);else missing.push(term);});
+  const score=terms.length?clamp(((found.length+highlight.length*.65)/terms.length)*100):0;return{terms,found,highlight,missing,score};
+}
+function renderJob(){
+  const ta=document.getElementById('jobText');ta.value=state.data.vagaTexto||'';document.getElementById('jobCount').textContent=`${ta.value.length} caracteres`;ta.oninput=e=>{state.data.vagaTexto=e.target.value;state.jobAnalysis=null;saveState();document.getElementById('jobCount').textContent=`${e.target.value.length} caracteres`;};
+  renderJobResult(state.jobAnalysis);
+}
+async function analyzeJob(){const text=document.getElementById('jobText').value.trim();state.data.vagaTexto=text;if(text.length<40){toast('Cole uma descrição de vaga mais completa.');return;}const result=await AIService.compareJobDescription(state.data,text);state.jobAnalysis=result;saveState();renderJobResult(result);}
+function renderJobResult(r){const box=document.getElementById('jobResult');if(!r){box.innerHTML='';return;}const list=arr=>arr.length?`<ul class="mini-list">${arr.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'<p class="tiny">Nenhum termo nesta categoria.</p>';box.innerHTML=`<div class="panel"><div class="match-hero"><div class="match-number">${r.score}%<span>compatibilidade estimada</span></div><div><h3 style="font-size:22px">Leitura da vaga</h3><p class="muted" style="margin:6px 0 0">Foram identificados ${r.terms.length} termos relevantes. A comparação considera apenas o conteúdo que você forneceu à Vitrine de Carreira.</p></div></div><div class="match-columns"><div class="match-card found"><h3>✓ Encontrado no perfil</h3>${list(r.found)}</div><div class="match-card highlight"><h3>⚠ Pode destacar melhor</h3>${list(r.highlight)}</div><div class="match-card missing"><h3>✕ Não identificado</h3>${list(r.missing)}</div></div><div class="disclaimer">“Não identificado” significa apenas que a competência não apareceu nas informações fornecidas. Isso não significa que você não a possui.</div></div>`;}
+
+/* =========================================================================
+   NETWORKING
+   ========================================================================= */
+function renderNetwork(){
+  const d=state.data,area=getArea().label,cargo=d.cargoAlvo||'[cargo-alvo]',skills=relevantSkills(d,2),project=firstMeaningful(d.projetosTexto,80)||'[nome do projeto]';
+  const models=[
+    ['Pedido de conexão',`Olá! Vi seu perfil e achei interessante sua trajetória em ${area}. Estou me desenvolvendo com foco em ${cargo} e gostaria de acompanhar mais conteúdos e experiências da área. Podemos nos conectar?`],
+    ['Depois da conexão',`Obrigado por aceitar a conexão! Estou aprofundando minha atuação em ${area}${skills.length?`, especialmente em ${skills.join(' e ')}`:''}. Se puder compartilhar um aprendizado que considera importante para quem está entrando na área, vou gostar muito de ouvir.`],
+    ['Comentário em publicação',`Muito interessante esse ponto sobre [tema do post]. Em um contexto que tive com ${skills[0]||'[competência relacionada]'}, percebi [observação real sua]. Gostei especialmente da parte sobre [ponto específico do post].`],
+    ['Contato com recrutador',`Olá, [nome]! Vi que você atua com recrutamento para posições de ${area}. Estou direcionando minha trajetória para ${cargo}${skills.length?` e venho desenvolvendo ${skills.join(' e ')}`:''}. Gostaria de me conectar e acompanhar futuras oportunidades aderentes a esse perfil.`],
+    ['Contato com profissional da área',`Olá, [nome]! Tenho acompanhado sua atuação em ${area} e achei muito interessante [algo específico do perfil]. Estou construindo minha trajetória com foco em ${cargo} e gostaria de trocar experiências sobre a área. Podemos nos conectar?`],
+    ['Follow-up após entrevista',`Olá, [nome]. Obrigado pela conversa de hoje sobre a oportunidade de ${cargo}. Gostei especialmente de conhecer [ponto real discutido]. A conversa reforçou meu interesse em contribuir com [desafio real da vaga/time]. Fico à disposição para os próximos passos.`],
+    ['Publicação de projeto',`Finalizei uma nova etapa do projeto ${project}.\n\nO desafio era [problema real]. Para resolver, trabalhei com ${skills.join(' e ')||'[ferramentas reais]'}. O principal aprendizado foi [aprendizado real].\n\nAgora quero testar, coletar feedback e evoluir a solução.`],
+    ['Publicação de certificação',`Concluí a certificação [nome da certificação], da [instituição].\n\nMais do que adicionar um certificado ao perfil, meu objetivo foi aprofundar conhecimentos em [tema real] e aplicar esse aprendizado em [projeto, estudo ou desafio real].`]
+  ];
+  document.getElementById('networkBox').innerHTML=models.map(([label,text],i)=>`<div class="net-card"><span class="kicker">${esc(label)}</span><p id="net-${i}">${esc(text)}</p><div class="net-actions"><button class="copy-btn" onclick="copyText(document.getElementById('net-${i}').textContent)">Copiar</button></div></div>`).join('')+'<p class="empty-note">Personalize os trechos entre colchetes. Mensagem boa de networking demonstra contexto real, não automação em massa.</p>';
+}
+
+/* =========================================================================
+   EVOLUTION PLAN
+   ========================================================================= */
+const SCORE_WEIGHTS={headline:.17,sobre:.17,experiencia:.20,projetos:.13,certificacoes:.08,competencias:.12,palavrasChave:.13};
+function buildPlanItems(scores){
+  const definitions=[
+    ['headline','Atualizar a headline com cargo-alvo, área e competências reais.','A headline afeta a primeira leitura do perfil.'],
+    ['sobre','Reescrever o Sobre com contexto, competências, evidências e objetivo.','O Sobre transforma informações soltas em narrativa profissional.'],
+    ['experiencia','Reestruturar experiências com ação, atividade, ferramenta e impacto real.','Experiências demonstram evidências práticas.'],
+    ['projetos','Reorganizar projetos em Problema → Solução → Tecnologias → Resultado.','Projetos podem comprovar competências, especialmente no início de carreira.'],
+    ['certificacoes','Padronizar certificações com nome, emissor e ano.','Organização melhora leitura e credibilidade.'],
+    ['competencias','Revisar competências e priorizar as aderentes ao objetivo.','Competências ajudam busca e coerência do perfil.'],
+    ['palavrasChave','Distribuir palavras-chave relevantes naturalmente pelo perfil.','Aderência semântica melhora clareza do posicionamento.']
+  ];
+  const items=definitions.filter(([k])=>scores[k]<82).map(([id,label,reason])=>{const deficit=82-scores[id],impact=SCORE_WEIGHTS[id],potential=Math.max(1,Math.round(deficit*impact));const priority=potential>=8?'high':potential>=4?'medium':'low';return{id,label,reason,potential,priority};}).sort((a,b)=>b.potential-a.potential);
+  items.push({id:'photo',label:'Conferir foto de perfil e capa.',reason:'Elementos visuais precisam estar atuais e coerentes com o posicionamento.',potential:0,priority:'low'});
+  items.push({id:'post',label:'Publicar ou comentar algo relevante da sua área.',reason:'Visibilidade ajuda o perfil a não depender apenas da página estática.',potential:0,priority:'low'});
+  items.push({id:'connect',label:'Fazer conexões personalizadas com pessoas relevantes.',reason:'Networking aumenta contexto e exposição profissional.',potential:0,priority:'low'});
+  return items;
+}
+function projectedScores(scores){const out={...scores};Object.keys(SCORE_WEIGHTS).forEach(k=>{if(out[k]<82)out[k]=82;});out.overall=clamp(Object.entries(SCORE_WEIGHTS).reduce((s,[k,w])=>s+out[k]*w,0));return out;}
+function renderPlan(){
+  const scores=state.lastScores||computeScores(state.data),items=buildPlanItems(scores),groups={high:[],medium:[],low:[]};items.forEach(x=>groups[x.priority].push(x));
+  const labels={high:'Alta prioridade',medium:'Média prioridade',low:'Baixa prioridade'};document.getElementById('checklistBox').innerHTML=['high','medium','low'].filter(p=>groups[p].length).map(p=>`<section class="priority-section"><div class="priority-head"><span class="priority-chip ${p}">${labels[p]}</span></div><ul class="checklist">${groups[p].map(it=>{const checked=!!state.checklist[it.id];return`<li class="check-item ${checked?'done':''}"><input type="checkbox" id="chk-${it.id}" ${checked?'checked':''} onchange="toggleCheck('${it.id}')"><div><label class="task-label" for="chk-${it.id}">${esc(it.label)}</label><div class="task-meta">${esc(it.reason)}</div></div><span class="gain">${it.potential?`+~${it.potential} pts`:'visibilidade'}</span></li>`;}).join('')}</ul></section>`).join('');
+  updatePlanProgress(items);const projected=projectedScores(scores);document.getElementById('beforeScore').textContent=scores.overall;document.getElementById('afterScore').textContent=projected.overall;
+}
+function updatePlanProgress(items){const done=items.filter(it=>state.checklist[it.id]).length,pct=items.length?Math.round(done/items.length*100):0;document.getElementById('planProgressFill').style.width=pct+'%';document.getElementById('planProgressText').textContent=pct+'% concluído';document.getElementById('planProgressCount').textContent=`${done}/${items.length} tarefas`;}
+function toggleCheck(id){state.checklist[id]=!state.checklist[id];saveState();renderPlan();}
+
+/* =========================================================================
+   FINAL RESULT
+   ========================================================================= */
+function inferDifferentials(d){const dif=[];const area=getArea();const skills=relevantSkills(d,4);if(skills.length>=2)dif.push(`Combinação de competências em ${skills.slice(0,3).join(', ')}`);if(d.projetosTexto)dif.push('Projetos usados como evidência prática');if(hasMetric(d.experienciaTexto)||containsAny(d.experienciaTexto,RESULT_TERMS))dif.push('Experiências com sinais de impacto ou resultado');if(countMatches(profileCombined(d),area.keywords)>=4)dif.push(`Boa aderência inicial a ${area.label}`);return dif.length?dif:['Ainda faltam evidências suficientes para apontar um diferencial com segurança.'];}
+function renderResult(){
+  const d=state.data,scores=state.lastScores||computeScores(d),projected=projectedScores(scores),headline=buildHeadlineVariations(d)[0],about=buildAbout(d),keywords=getArea().keywords.filter(k=>normalize(profileCombined(d)).includes(normalize(k))).slice(0,6),diff=inferDifferentials(d);
+  document.getElementById('resultGrid').innerHTML=`
+    <div class="result-card"><div class="lbl">Cargo-alvo</div><div class="value">${esc(d.cargoAlvo||'Não definido')}</div></div>
+    <div class="result-card"><div class="lbl">Área</div><div class="value">${esc(getArea().label)}</div></div>
+    <div class="result-card"><div class="lbl">Principais competências</div><div class="value">${esc(relevantSkills(d,6).join(' • ')||'Ainda não informadas')}</div></div>
+    <div class="result-card"><div class="lbl">Diferenciais encontrados</div><div class="value">${diff.map(x=>'• '+x).map(esc).join('\n')}</div></div>
+    <div class="result-card full"><div class="lbl">Headline recomendada</div><div class="value" id="finalHeadline">${esc(headline)}</div><button class="copy-btn" onclick="copyText(document.getElementById('finalHeadline').textContent)">Copiar</button></div>
+    <div class="result-card full"><div class="lbl">Sobre recomendado</div><div class="value" id="finalAbout">${esc(about)}</div><button class="copy-btn" onclick="copyText(document.getElementById('finalAbout').textContent)">Copiar</button></div>
+    <div class="result-card"><div class="lbl">Palavras-chave já sustentadas pelo perfil</div><div class="value">${esc(keywords.join(' • ')||'Poucas palavras-chave identificadas')}</div></div>
+    <div class="result-card"><div class="lbl">Pontuação</div><div class="score-pair"><div><div class="n">${scores.overall}</div><span class="tiny">atual</span></div><div><div class="n after">${projected.overall}</div><span class="tiny">projetada</span></div></div></div>`;
+}
+
+/* =========================================================================
+   RESET / INIT
+   ========================================================================= */
+function restartDiagnosis(){
+  // Reinicia completamente a jornada e retorna para a primeira tela do site.
+  try{
+    localStorage.removeItem(STORAGE_KEY);
+    LEGACY_STORAGE_KEYS.forEach(key=>localStorage.removeItem(key));
+  }catch(err){
+    console.warn('Não foi possível limpar todo o progresso salvo.',err);
+  }
+
+  state = emptyState();
+  state.formStep = 0;
+  state.checklist = {};
+  state.lastScores = null;
+  state.jobAnalysis = null;
+
+  // Usa a mesma função de navegação do restante da aplicação para garantir
+  // que somente a landing page fique visível.
+  goTo('landing');
+
+  // Garante o topo mesmo em navegadores que ignorem o scroll suave em file://.
+  window.scrollTo(0, 0);
+}
+
+// Mantido como alias para compatibilidade com versões anteriores do HTML.
+function resetAll(){restartDiagnosis();}
+render();
+</script>
+</body>
+</html>
