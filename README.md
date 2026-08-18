@@ -84,7 +84,7 @@ Depois, abra `index.html` em um navegador moderno.
 
 ## Privacidade
 
-Nesta simulação demonstrativa, as funções de cadastro, banco de dados e backend foram representadas pelo armazenamento local do navegador com `localStorage`. Durante os testes, os dados preenchidos permanecem no próprio dispositivo do usuário.
+A versão atual funciona diretamente no navegador e utiliza `localStorage` para persistência local. Os dados preenchidos permanecem no próprio dispositivo do usuário, sem necessidade de cadastro, banco de dados externo ou servidor de aplicação.
 
 Consulte [PRIVACY.md](PRIVACY.md) para mais detalhes.
 
